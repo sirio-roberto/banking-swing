@@ -1,5 +1,6 @@
 package banking.frames;
 
+import banking.customComponents.CustomJButton;
 import banking.entities.Card;
 import banking.entities.dao.CardDao;
 import banking.entities.dao.DaoFactory;
@@ -26,11 +27,9 @@ public class MainFrame extends JFrame {
         JPanel buttonsPanel = new JPanel(new GridLayout(1, 2, 30, 0));
         buttonsPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
-        JButton createAccountButton = new JButton("Create Account");
-        createAccountButton.setBackground(Color.WHITE);
+        JButton createAccountButton = new CustomJButton("Create Account");
 
-        JButton logInButton = new JButton("Log in");
-        logInButton.setBackground(Color.WHITE);
+        JButton logInButton = new CustomJButton("Log in");
 
         buttonsPanel.add(createAccountButton);
         buttonsPanel.add(logInButton);

@@ -1,5 +1,6 @@
 package banking.frames;
 
+import banking.customComponents.CustomJButton;
 import banking.entities.Card;
 import banking.entities.dao.CardDao;
 
@@ -13,7 +14,6 @@ public class LogInFrame extends JDialog {
         setTitle("Banking Card App");
         setResizable(false);
         setSize(300, 350);
-        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setLayout(new BorderLayout());
 
         JPanel loginPanel = new JPanel(new BorderLayout());
@@ -32,7 +32,7 @@ public class LogInFrame extends JDialog {
         pinLabel.setBounds(0, 100, 200, 30);
         JPasswordField pinText = new JPasswordField();
 
-        JButton loginButton = new JButton("LOGIN");
+        JButton loginButton = new CustomJButton("LOGIN");
 
         loginFieldsLabel.add(accountNumberLabel);
         loginFieldsLabel.add(accountNumberText);
@@ -48,6 +48,8 @@ public class LogInFrame extends JDialog {
         loginButton.addActionListener(e -> {
             Card card = cardDao.findByNumberAndPIN(accountNumberText.getText(), String.valueOf(pinText.getPassword()));
             System.out.println(card);
+            dispose();
+            new LoggedFrame(card, cardDao);
         });
 
         setVisible(true);

@@ -1,6 +1,7 @@
 package banking.frames;
 
 import banking.customComponents.CustomJButton;
+import banking.customComponents.CustomJSpinner;
 import banking.entities.Card;
 import banking.entities.dao.CardDao;
 
@@ -75,17 +76,7 @@ public class LoggedFrame extends JDialog {
             JPanel balancePanel = new JPanel(new GridLayout(1, 2, 10, 0));
             JLabel balanceLabel = new JLabel("Your current balance is: ");
 
-            JSpinner balanceSpinner = new JSpinner();
-            balanceSpinner.setFont(balanceSpinner.getFont().deriveFont(Font.BOLD));
-            balanceSpinner.setUI(new BasicSpinnerUI() {
-                protected Component createNextButton() {
-                    return null;
-                }
-
-                protected Component createPreviousButton() {
-                    return null;
-                }
-            });
+            JSpinner balanceSpinner = new CustomJSpinner();
 
             balancePanel.add(balanceLabel);
             balancePanel.add(balanceSpinner);

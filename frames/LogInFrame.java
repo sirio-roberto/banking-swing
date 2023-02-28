@@ -34,6 +34,7 @@ public class LogInFrame extends JDialog {
 
         JButton loginButton = new CustomJButton("LOGIN");
 
+        loginFieldsLabel.add(new JLabel());
         loginFieldsLabel.add(accountNumberLabel);
         loginFieldsLabel.add(accountNumberText);
         loginFieldsLabel.add(pinLabel);

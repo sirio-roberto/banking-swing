@@ -60,7 +60,8 @@ public class MainFrame extends JFrame {
         });
 
         logInButton.addActionListener(e -> {
-            new LogInFrame(cardDao);
+            setVisible(false);
+            new LogInFrame(this, cardDao);
         });
 
         setVisible(true);

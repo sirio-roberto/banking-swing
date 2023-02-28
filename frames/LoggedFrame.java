@@ -8,16 +8,18 @@ import banking.entities.dao.CardDao;
 import javax.swing.*;
 import javax.swing.plaf.basic.BasicSpinnerUI;
 import java.awt.*;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.text.NumberFormat;
 
 public class LoggedFrame extends JDialog {
 
-    public LoggedFrame(Card card, CardDao cardDao) {
+    public LoggedFrame(JFrame rootFrame, Card card, CardDao cardDao) {
         setModal(true);
         setTitle("Banking Card App");
         setResizable(false);
         setSize(300, 350);
-        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+        setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
         setLayout(new BorderLayout());
 
         JPanel mainPanel = new JPanel(new BorderLayout());
@@ -58,6 +60,14 @@ public class LoggedFrame extends JDialog {
 
         add(mainPanel, BorderLayout.CENTER);
 
+        addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                rootFrame.setVisible(true);
+                dispose();
+            }
+        });
+
         getBalanceBtn.addActionListener(e -> {
             JPanel balancePanel = new JPanel(new GridLayout(1, 2, 10, 0));
             JLabel balanceLabel = new JLabel("Your current balance is: ");
@@ -94,6 +104,7 @@ public class LoggedFrame extends JDialog {
         });
 
         logOutBtn.addActionListener(e2 -> {
+            rootFrame.setVisible(true);
             dispose();
         });
 
@@ -106,6 +117,11 @@ public class LoggedFrame extends JDialog {
                 cardDao.delete(card);
                 logOutBtn.doClick();
             }
+        });
+
+        doTransferBtn.addActionListener(e2 -> {
+            setVisible(false);
+            new TransferFrame(this, cardDao, card);
         });
 
         setVisible(true);

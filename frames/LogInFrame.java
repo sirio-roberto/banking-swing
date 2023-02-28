@@ -6,15 +6,18 @@ import banking.entities.dao.CardDao;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 public class LogInFrame extends JDialog {
 
-    public LogInFrame(CardDao cardDao) {
+    public LogInFrame(JFrame mainFrame, CardDao cardDao) {
         setModal(true);
         setTitle("Banking Card App");
         setResizable(false);
         setSize(300, 350);
         setLayout(new BorderLayout());
+        setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
 
         JPanel loginPanel = new JPanel(new BorderLayout());
         loginPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
@@ -29,7 +32,6 @@ public class LogInFrame extends JDialog {
         JTextField accountNumberText = new JTextField();
 
         JLabel pinLabel = new JLabel("Enter your PIN:");
-        pinLabel.setBounds(0, 100, 200, 30);
         JPasswordField pinText = new JPasswordField();
 
         JButton loginButton = new CustomJButton("LOGIN");
@@ -46,11 +48,19 @@ public class LogInFrame extends JDialog {
 
         add(loginPanel);
 
+        addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                mainFrame.setVisible(true);
+                dispose();
+            }
+        });
+
         loginButton.addActionListener(e -> {
             Card card = cardDao.findByNumberAndPIN(accountNumberText.getText(), String.valueOf(pinText.getPassword()));
-            dispose();
             if (card != null) {
-                new LoggedFrame(card, cardDao);
+                dispose();
+                new LoggedFrame(mainFrame, card, cardDao);
             }
             else {
                 JOptionPane.showConfirmDialog(loginPanel,

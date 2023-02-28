@@ -82,6 +82,9 @@ public class Card {
     }
 
     public static boolean isCardNumberValid(String cardNumber) {
+        if (!cardNumber.matches("\\d+")) {
+            return false;
+        }
         int checkSum = Integer.parseInt(cardNumber.substring(cardNumber.length() - 1));
         int[] intArray = Arrays.stream(cardNumber.substring(0, cardNumber.length() - 1).split(""))
                 .mapToInt(Integer::parseInt).toArray();

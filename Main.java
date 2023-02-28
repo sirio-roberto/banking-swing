@@ -3,6 +3,7 @@ package banking;
 import banking.entities.Card;
 import banking.entities.dao.CardDao;
 import banking.entities.dao.DaoFactory;
+import banking.frames.MainFrame;
 
 import java.util.Scanner;
 
@@ -14,6 +15,8 @@ public class Main {
 
 
     public static void main(String[] args) {
+
+        new MainFrame();
 
         cardDao = DaoFactory.createCardDao(args[1]);
         cardDao.createCardTable();

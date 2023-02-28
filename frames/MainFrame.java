@@ -25,8 +25,10 @@ public class MainFrame extends JFrame {
 
         JPanel buttonsPanel = new JPanel(new GridLayout(1, 2, 30, 0));
         buttonsPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+
         JButton createAccountButton = new JButton("Create Account");
         createAccountButton.setBackground(Color.WHITE);
+
         JButton logInButton = new JButton("Log in");
         logInButton.setBackground(Color.WHITE);
 
@@ -56,6 +58,10 @@ public class MainFrame extends JFrame {
             JOptionPane.showConfirmDialog(buttonsPanel,
                     accountDetailsPanel, "Your card has been created!",
                     JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE);
+        });
+
+        logInButton.addActionListener(e -> {
+            new LogInFrame(cardDao);
         });
 
         setVisible(true);

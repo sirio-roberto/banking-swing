@@ -47,9 +47,15 @@ public class LogInFrame extends JDialog {
 
         loginButton.addActionListener(e -> {
             Card card = cardDao.findByNumberAndPIN(accountNumberText.getText(), String.valueOf(pinText.getPassword()));
-            System.out.println(card);
             dispose();
-            new LoggedFrame(card, cardDao);
+            if (card != null) {
+                new LoggedFrame(card, cardDao);
+            }
+            else {
+                JOptionPane.showConfirmDialog(loginPanel,
+                        "Wrong card number or PIN", "Error",
+                        JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
+            }
         });
 
         setVisible(true);
